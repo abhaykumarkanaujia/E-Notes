@@ -1,24 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import NotesState from './context/notes/NotesState';
+import CreateNote from './components/CreateNote';
+import SignUp from './components/SignUp';
+import LogIn from './components/LogIn';
+import AuthState from './context/auth/AuthState';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AuthState>
+        <NotesState>
+          <Router>
+            <Navbar />
+            <div className='container my-5 mt-5' style={{ paddingTop: "40px" }}>
+              <Routes>
+                <Route exact path='/' element={<Home />} />
+                <Route exact path='/createNote' element={<CreateNote />} />
+                <Route exact path='/signup' element={<SignUp />} />
+                <Route exact path='/login' element={<LogIn />} />
+              </Routes>
+            </div>
+          </Router>
+        </NotesState>
+      </AuthState>
+    </>
   );
 }
 
